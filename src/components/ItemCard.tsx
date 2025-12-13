@@ -31,13 +31,12 @@ export function ItemCard({
 
   return (
     <Card className='overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-105 grid grid-rows-[1fr_auto_auto] '>
-      <CardHeader className=' p-0'>
+      <CardHeader className='p-0'>
         <div className='relative h-48 w-full flex justify-center'>
           <Image
             src={image_url || '/placeholder.svg'}
             alt={name}
-            width={1000}
-            height={1000}
+            fill
             className='transition-all object-cover size-full duration-300 hover:opacity-90'
           />
           <div className='absolute top-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full'>

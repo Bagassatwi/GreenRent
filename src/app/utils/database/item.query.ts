@@ -67,21 +67,21 @@ export const findAllItems = async ({
     where: {
       ...(search?.name || search?.category
         ? {
-            OR: [
-              search.name
-                ? { name: { contains: search.name, mode: 'insensitive' } }
-                : undefined,
-              search.category
-                ? { category: { contains: search.category } }
-                : undefined
-            ].filter(Boolean) as Prisma.ItemWhereInput[]
-          }
+          OR: [
+            search.name
+              ? { name: { contains: search.name, mode: 'insensitive' } }
+              : undefined,
+            search.category
+              ? { category: { contains: search.category } }
+              : undefined
+          ].filter(Boolean) as Prisma.ItemWhereInput[]
+        }
         : {}),
       is_deleted: false,
       ...where
     },
     orderBy: {
-      createdAt: 'asc'
+      created_at: 'asc'
     }
   });
 };

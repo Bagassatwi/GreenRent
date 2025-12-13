@@ -21,8 +21,8 @@ model User {
   email               String   @unique
   password            String?
   profile_picture_url String?
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
   items               Item[]
   Rental              Rental[]
   Review              Review[]
@@ -43,8 +43,8 @@ model Item {
   dailyWasteReduction Float
   owner_id            String
   is_deleted          Boolean  @default(false)
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
   rentals             Rental[]
   reviews             Review[]
   owner               User     @relation(fields: [owner_id], references: [id])
@@ -59,23 +59,23 @@ model Rental {
   paid_amount          Int
   rent_amount          Int
   status               RentalStatus          @default(PENDING)
-  createdAt            DateTime              @default(now())
-  updatedAt            DateTime              @updatedAt
+  created_at           DateTime              @default(now())
+  updated_at           DateTime              @updatedAt
   item                 Item                  @relation(fields: [item_id], references: [id])
   User                 User                  @relation(fields: [user_id], references: [id])
   sustainabilityImpact SustainabilityImpact?
 }
 
 model Review {
-  id        String   @id @default(uuid())
-  rating    Int
-  comment   String?
-  user_id   String
-  item_id   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [user_id], references: [id])
-  item      Item     @relation(fields: [item_id], references: [id])
+  id         String   @id @default(uuid())
+  rating     Int
+  comment    String?
+  user_id    String
+  item_id    String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user       User     @relation(fields: [user_id], references: [id])
+  item       Item     @relation(fields: [item_id], references: [id])
 }
 
 model SustainabilityImpact {
@@ -83,6 +83,6 @@ model SustainabilityImpact {
   rental_id       String   @unique
   carbon_savings  Float    @default(0)
   waste_reduction Float    @default(0)
-  createdAt       DateTime @default(now())
+  created_At      DateTime @default(now())
   rental          Rental   @relation(fields: [rental_id], references: [id])
 }

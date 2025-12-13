@@ -7,8 +7,9 @@ CREATE TABLE "User" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "profile_picture_url" TEXT,
+    "createdat" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedat" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -22,13 +23,15 @@ CREATE TABLE "Item" (
     "category" TEXT NOT NULL,
     "description" TEXT,
     "condition" TEXT,
-    "image_url" TEXT,
+    "image_url" TEXT NOT NULL,
     "available" BOOLEAN NOT NULL DEFAULT true,
     "item_amount" INTEGER NOT NULL DEFAULT 1,
+    "dailyCarbonSaving" DOUBLE PRECISION NOT NULL,
+    "dailyWasteReduction" DOUBLE PRECISION NOT NULL,
     "owner_id" TEXT NOT NULL,
     "is_deleted" BOOLEAN NOT NULL DEFAULT false,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdat" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedat" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Item_pkey" PRIMARY KEY ("id")
 );
@@ -40,9 +43,11 @@ CREATE TABLE "Rental" (
     "user_id" TEXT NOT NULL,
     "start_date" TIMESTAMP(3) NOT NULL,
     "finished_date" TIMESTAMP(3) NOT NULL,
+    "paid_amount" INTEGER NOT NULL,
+    "rent_amount" INTEGER NOT NULL,
     "status" "RentalStatus" NOT NULL DEFAULT 'PENDING',
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdat" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedat" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Rental_pkey" PRIMARY KEY ("id")
 );
@@ -54,14 +59,28 @@ CREATE TABLE "Review" (
     "comment" TEXT,
     "user_id" TEXT NOT NULL,
     "item_id" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdat" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedat" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Review_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "SustainabilityImpact" (
+    "id" TEXT NOT NULL,
+    "rental_id" TEXT NOT NULL,
+    "carbon_savings" DOUBLE PRECISION NOT NULL DEFAULT 0,
+    "waste_reduction" DOUBLE PRECISION NOT NULL DEFAULT 0,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "SustainabilityImpact_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "SustainabilityImpact_rental_id_key" ON "SustainabilityImpact"("rental_id");
 
 -- AddForeignKey
 ALTER TABLE "Item" ADD CONSTRAINT "Item_owner_id_fkey" FOREIGN KEY ("owner_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -77,3 +96,6 @@ ALTER TABLE "Review" ADD CONSTRAINT "Review_user_id_fkey" FOREIGN KEY ("user_id"
 
 -- AddForeignKey
 ALTER TABLE "Review" ADD CONSTRAINT "Review_item_id_fkey" FOREIGN KEY ("item_id") REFERENCES "Item"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SustainabilityImpact" ADD CONSTRAINT "SustainabilityImpact_rental_id_fkey" FOREIGN KEY ("rental_id") REFERENCES "Rental"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

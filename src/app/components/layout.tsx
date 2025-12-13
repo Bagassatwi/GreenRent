@@ -1,12 +1,12 @@
 'use client';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import React from 'react';
+import React, { ReactNode, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export function Layout({ children }: { children: React.ReactNode }) {
-  const { push } = useRouter();
-  const [searchTerm, setSearchTerm] = React.useState('');
+export function Layout({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState('');
   return (
     <div className='flex flex-col min-h-screen'>
       <div className=' flex-grow p-4'>
@@ -14,11 +14,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Input
             type='search'
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={(e) => {
+            onChange={e => setSearchTerm(e.target.value)}
+            onKeyDown={e => {
               if (e.key === 'Enter') {
                 e.preventDefault();
-                push(`/rentals?search=${searchTerm}`);
+                router.push(`/rentals?search=${searchTerm}`);
               }
             }}
             placeholder='Search for items...'

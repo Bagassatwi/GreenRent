@@ -17,7 +17,7 @@ export const getAllRentals = async ({
       ...include,
       sustainabilityImpact: true
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { created_at: 'desc' },
     take
   });
 };
@@ -35,7 +35,7 @@ export const getLatestPendingRental = async (ownerId: string) => {
         sustainabilityImpact: true
       },
       orderBy: {
-        createdAt: 'desc'
+        created_at: 'desc'
       }
     });
 

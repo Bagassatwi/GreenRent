@@ -158,7 +158,7 @@ export function Header() {
                 <Avatar>
                   <AvatarImage
                     src={
-                      session?.user?.image ?? 'https://github.com/shadcn.png'
+                      session?.user?.image ?? `https://ui-avatars.com/api/?background=random&name=${session?.user?.name.replaceAll(" ","+")}`
                     }
                   />
                   <AvatarFallback>CN</AvatarFallback>
