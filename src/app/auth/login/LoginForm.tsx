@@ -33,6 +33,8 @@ export default function LoginForm() {
         email,
         password,
       });
+      console.log(result);
+
       if (result?.error) {
         setLoading(false);
         return toast.error("Invalid Email Or Password", { id: loading });
