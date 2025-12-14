@@ -99,7 +99,7 @@ export default function LoginForm() {
           </div>
           <Button
             disabled={loading}
-            onClick={() => signIn("google", { callbackUrl: "/" })}
+            onClick={() => signIn("google", { callbackUrl: "https://regal-sopapillas-843be6.netlify.app/" })}
             variant="outline"
             className="w-full"
           >
