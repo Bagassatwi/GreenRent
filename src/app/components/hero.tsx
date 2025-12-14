@@ -8,9 +8,9 @@ export function Hero() {
     <section className='bg-gradient-to-br from-green-50 to-green-100 sm:py-24 relative py-16 overflow-hidden'>
       <div className='absolute inset-0 z-0'>
         <Image
-          src='/hero.png?height=800&width=1600'
+          src='/hero.png'
           alt='Nature background'
-          layout='fill'
+          fill
           objectFit='cover'
           className='opacity-20'
         />
