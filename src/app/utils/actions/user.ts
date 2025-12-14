@@ -24,6 +24,8 @@ export const handleUserSignup = async (formData: FormData) => {
         message: 'Email sudah terdaftar'
       };
     }
+    console.log(error);
+
     return { success: false, message: 'Gagal membuat user' };
   }
 };
